@@ -1,20 +1,33 @@
 // Copyright 2017 Oh-Hyun Kwon. All Rights Reserved.
 
+// UE4 see: https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Reference/Classes/
+
+// C++ include only once
 #pragma once
 
+// UE4 header files
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
+// Graph element header files
 #include "IGVCluster.h"
 #include "IGVEdge.h"
 #include "IGVProjection.h"
 
+// UE4 requirement "At the top of each gameplay class header file, the generated header file (created automatically) needs to be included"
 #include "IGVGraphActor.generated.h"
 
+// UE4 "These are used to create the UClass for the class being declared, which can be thought of as the engine's specialized representation of the class"
+// UE4 IMSVGRAPHVIS_API https://answers.unrealengine.com/questions/95747/why-does-adding-code-from-ue4-editor-add-this-api.html
 UCLASS()
 class IMSVGRAPHVIS_API AIGVGraphActor : public AActor
 {
-	GENERATED_BODY()
+	GENERATED_BODY() // UE4 element
+
+// UE4	EditDefaultsOnly - Indicates that this property can be edited by property windows, but only on archetypes. This operator is incompatible with the "Visible" tags
+//		Category = TopCategory|SubCategory|... - Specifies the category of the property when displayed in Blueprint editing tools. Define nested categories using the | operator.
+//		BlueprintReadWrite - This property can be read or written from a Blueprint. This operator is incompatible with the BlueprintReadOnly specifier.
+//		TSubclassOf - https://answers.unrealengine.com/questions/462096/why-use-tsubclassof-and-not-just-the-class-itself.html
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category = ImmersiveGraphVisualization)
@@ -43,6 +56,10 @@ public:
 
 	UPROPERTY()
 	class UMaterialInstanceDynamic* OutlineMaterialInstance;
+
+// Interp - Indicates that the value can be driven over time by a Track in Matinee.
+// EditAnywhere - Indicates that this property can be edited by property windows, on archetypes and instances.
+// SaveGame - This specifier is a simple way to include fields explicitly for a checkpoint/save system at the property level. The flag should be set on all fields that are intended to be part of a saved game, and then a proxy archiver can be used to read/write it.
 
 public:
 	TArray<class AIGVNodeActor*> Nodes;
